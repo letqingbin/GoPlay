@@ -1,0 +1,221 @@
+//
+//  DateHelper.m
+//  YSBBusiness
+//
+//  Created by lu lucas on 20/12/14.
+//  Copyright (c) 2014 lu lucas. All rights reserved.
+//
+
+#import "DateHelper.h"
+#import "Macro.h"
+
+@implementation DateHelper
+
++ (NSString *)timeWithDate:(NSTimeInterval)timeStamp formatter:(NSString *)formatter
+{
+    NSDateFormatter *dateFormatter = [DateHelper dateFormatterWithFormatString:formatter];
+    return [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeStamp]];
+}
+
++ (NSDateFormatter *)dateFormatterWithFormatString:(NSString *)format
+{
+    // 3.18.0 修改，其实我们最低适配ios7可以不考虑线程安全，不过也加个吧
+    NSMutableDictionary *threadDic = [[NSThread currentThread] threadDictionary];
+    NSDateFormatter *dateFormatter = [threadDic objectForKey:format];
+    if (!dateFormatter) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:format];
+        [threadDic setObject:dateFormatter forKey:format];
+    }
+    return dateFormatter;
+    
+}
+
++ (NSCalendar *)getCalendar
+{
+    
+    NSMutableDictionary *threadDictionary = [[NSThread currentThread] threadDictionary] ;
+    NSCalendar *calendar = [threadDictionary objectForKey: @"DDMyCalendar"] ;
+    if (nil == calendar) {
+        if (bIOS8) {
+            calendar = [NSCalendar calendarWithIdentifier:NSGregorianCalendar];
+        } else {
+            calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        }
+        // 3.12.0 如果nslocale为空，则新建一个中国locale的对象用于赋值
+        [calendar setLocale:[NSLocale autoupdatingCurrentLocale]?:[[NSLocale alloc] initWithLocaleIdentifier:@"zh"]];
+        [threadDictionary setObject:calendar forKey: @"DDMyCalendar"] ;
+        
+    }
+    return calendar;
+    
+}
+
++ (NSString *)yearWithDate:(NSDate *)date
+{
+    NSCalendar *calendar = [self getCalendar];
+    NSUInteger unitFlags = NSCalendarUnitYear;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:date];
+    
+    return @([dateComponent year]).stringValue;
+}
+
++ (NSString *)monthWithDate:(NSDate *)date
+{
+    NSCalendar *calendar = [self getCalendar];
+    NSUInteger unitFlags = NSCalendarUnitMonth;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:date];
+    
+    return [NSString stringWithFormat:@"%02ld", (long)[dateComponent month]];
+}
+
++ (NSString *)weekWithDate:(NSString *)date
+{
+    NSCalendar *calendar = [self getCalendar];
+    NSUInteger unitFlags = NSCalendarUnitWeekOfMonth;
+    NSDateFormatter *dateFormatter = [DateHelper dateFormatterWithFormatString:NormalDateFormatter];
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:[dateFormatter dateFromString:date]];
+    
+    return @([dateComponent weekOfMonth]).stringValue;
+}
+
++ (NSString *)dayWithDate:(NSDate *)date
+{
+    NSCalendar *calendar = [self getCalendar];
+    NSUInteger unitFlags = NSCalendarUnitDay;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:date];
+    
+    return @([dateComponent day]).stringValue;
+}
+
+
++ (NSString *)changeDurationToTime:(CGFloat)duration
+{
+    NSInteger time = ceilf(duration);
+    NSString *hour = [NSString stringWithFormat:@"%02ld", time / 3600];
+    NSString *min = [NSString stringWithFormat:@"%02ld", (time - [hour integerValue] * 3600) / 60];
+    NSString *sec = [NSString stringWithFormat:@"%02ld", time - [hour integerValue] * 3600 - [min integerValue] * 60];
+    return [NSString stringWithFormat:@"%@:%@:%@", hour, min, sec];
+}
+
++ (NSString *)getDateYearMonthDayString:(NSDate *)date {
+    NSDateFormatter *dateFormatter = [DateHelper dateFormatterWithFormatString:@"yyyy/MM/dd"];
+	return [dateFormatter stringFromDate:date];
+}
+
+
+
++ (NSInteger)firstWeekdayInThisMonth:(NSDate *)date{
+    NSCalendar *calendar = [self getCalendar];
+    
+    [calendar setFirstWeekday:1];//1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
+    NSDateComponents *comp = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
+    [comp setDay:1];
+    NSDate *firstDayOfMonthDate = [calendar dateFromComponents:comp];
+    NSUInteger firstWeekday = [calendar ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfMonth forDate:firstDayOfMonthDate];
+    return firstWeekday - 1;
+}
+
++ (NSInteger)totaldaysInMonth:(NSDate *)date{
+    NSRange daysInOfMonth = [[self getCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
+    return daysInOfMonth.length;
+}
+
++ (NSDate *)lastMonth:(NSDate *)date{
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.month = -1;
+    NSDate *newDate = [[self getCalendar] dateByAddingComponents:dateComponents toDate:date options:0];
+    return newDate;
+}
+
++ (NSDate*)nextMonth:(NSDate *)date{
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.month = +1;
+    NSDate *newDate = [[self getCalendar] dateByAddingComponents:dateComponents toDate:date options:0];
+    return newDate;
+}
+
+#pragma mark - 药消息的时间
++ (NSString *)getMessageDateString:(NSTimeInterval)timeInterval
+{
+    NSString *result = @"";
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    
+    do {
+        if ([DateHelper theSameWithDate:date andDate:[NSDate date]] == TheSameTypeDay)
+        {
+            //当天信息
+            NSDateFormatter *dateFormatter = [DateHelper dateFormatterWithFormatString:@"HH:mm"];
+            result = [dateFormatter stringFromDate:date];
+            break;
+        }
+        
+        
+        NSDate *yesterday = [NSDate dateWithTimeIntervalSince1970:[[NSDate date] timeIntervalSince1970]-(24*60*60)];
+        if ([DateHelper theSameWithDate:date andDate:yesterday] == TheSameTypeDay)
+        {
+            //昨日信息
+            NSDateFormatter *dateFormatter = [DateHelper dateFormatterWithFormatString:@"HH:mm"];
+            result = [NSString stringWithFormat:@"昨天 %@", [dateFormatter stringFromDate:date]];
+            break;
+        }
+        
+        if ([DateHelper theSameWithDate:date andDate:[NSDate date]] == TheSameTypeMonth
+            || [DateHelper theSameWithDate:date andDate:[NSDate date]] == TheSameTypeYear)
+        {
+            //当天信息
+            NSDateFormatter *dateFormatter = [DateHelper dateFormatterWithFormatString:@"MM-dd"];
+            result = [dateFormatter stringFromDate:date];
+            break;
+        }
+        
+        if ([DateHelper theSameWithDate:date andDate:[NSDate date]] == TheSameTypeNotSame)
+        {
+            //当天信息
+            NSDateFormatter *dateFormatter = [DateHelper dateFormatterWithFormatString:@"yyyy-MM-dd"];
+            result = [dateFormatter stringFromDate:date];
+            break;
+        }
+        
+        
+    } while (0);
+    
+    return result;
+}
+
++ (TheSameType)theSameWithDate:(NSDate *)date1 andDate:(NSDate *)date2
+{
+    NSCalendar *calendar = [self getCalendar];
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSDateComponents *comp1 = [calendar components:unitFlags fromDate:date1];
+    NSDateComponents *comp2 = [calendar components:unitFlags fromDate:date2];
+    if ([comp1 year] == [comp2 year]) {
+        if ([comp1 month] == [comp2 month]) {
+            if ([comp1 day] == [comp2 day]) {
+                return TheSameTypeDay;
+            } else {
+                return TheSameTypeMonth;
+            }
+        } else {
+            return TheSameTypeYear;
+        }
+    } else {
+        return TheSameTypeNotSame;
+    }
+}
+
++ (BOOL)isToday:(NSDate *)date
+{
+    NSCalendar *calendar = [self getCalendar];
+    int unit = NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear ;
+    
+    //1.获得当前时间的 年月日
+    NSDateComponents *nowCmps = [calendar components:unit fromDate:[NSDate date]];
+    
+    //2.获得self
+    NSDateComponents *selfCmps = [calendar components:unit fromDate:date];
+    
+    return (selfCmps.year == nowCmps.year) && (selfCmps.month == nowCmps.month) && (selfCmps.day == nowCmps.day);
+}
+
+@end

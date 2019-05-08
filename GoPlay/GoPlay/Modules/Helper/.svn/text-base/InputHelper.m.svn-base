@@ -1,0 +1,373 @@
+//
+//  InputHelper.m
+//  KKBusiness
+//
+//  Created by lulucas on 10/29/14.
+//  Copyright (c) 2014 lulucas. All rights reserved.
+//
+
+#import "InputHelper.h"
+#import "Macro.h"
+#import "ColorHelper.h"
+#import "ReactiveCocoa.h"
+#import "Masonry.h"
+#import <CoreText/CoreText.h>
+
+@implementation InputHelper
+
++ (UIToolbar *)createToolbar
+{
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+    if (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_7_0) {
+        toolBar.translucent = NO;
+        toolBar.barTintColor = [UIColor colorWithRed:0xf5 / 255.0f green:0xf6 / 255.0f blue:0xf5 / 255.0f alpha:1.0f];
+    } else {
+        [[UIToolbar appearance] setBackgroundImage:[ColorHelper imageWithColor:[UIColor colorWithRed:52/255.f green:152/255.f blue:219/255.f alpha:1.0f] size:CGSizeMake(1, 44)] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+        [[UIBarButtonItem appearance] setBackgroundImage:[UIImage new]
+                                                forState:UIControlStateNormal
+                                              barMetrics:UIBarMetricsDefault];
+    }
+    
+    
+    UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:nil];
+    UIBarButtonItem *prevButton = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:nil];
+    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIButton *doneBtn = [InputHelper createButtonWithTitle:@"完成"
+                                                 textColor:[UIColor colorWithRed:0xFE / 255.0f green:0x5C / 255.0f blue:0x02 / 255.0f alpha:1.0f]
+                                                   bgColor:[UIColor colorWithRed:0xf5 / 255.0f green:0xf6 / 255.0f blue:0xf5 / 255.0f alpha:1.0f]
+                                               bgColorHigh:nil
+                                                  fontSize:14
+                                                    target:self
+                                                    action:@selector(textFieldDone)
+                                                       tag:kButtonTag
+                                                 addToView:nil
+                                                     frame:CGRectMake(0, 0, 44.0f, 44.0f)
+                                         supportAotuLayout:NO];
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithCustomView:doneBtn];
+    toolBar.items = @[prevButton, nextButton, space, done];
+    
+    return toolBar;
+}
+
++ (void)textFieldDone
+{
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+}
+
++ (UIButton *)createButtonWithTitle:(NSString *)title
+                          textColor:(UIColor *)textColor
+                            bgColor:(UIColor *)bgColor
+                        bgColorHigh:(UIColor *)bgColorHigh
+                           fontSize:(CGFloat)fontSize
+                             target:(id)target
+                             action:(SEL)action
+                                tag:(NSInteger)tag
+                          addToView:(UIView *)view
+                              frame:(CGRect)frame
+                         supportAotuLayout:(BOOL)bAL
+
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.translatesAutoresizingMaskIntoConstraints = !bAL;
+    btn.frame = frame;
+    [btn setTitle:title forState:UIControlStateNormal];
+    btn.backgroundColor = bgColor;
+    btn.tag = tag;
+    if (bgColorHigh) {
+        [btn setBackgroundImage:[ColorHelper imageWithColor:bgColorHigh size:CGSizeMake(1, 1)] forState:UIControlStateHighlighted];
+    }
+    
+    [btn setTitleColor:textColor forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:fontSize];
+    [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:btn];
+    return btn;
+}
+
++ (UILabel *)createLabelWithFrame:(CGRect)rect
+                            title:(NSString *)title
+                        textColor:(UIColor *)textColor
+                          bgColor:(UIColor *)bgColor
+                         fontSize:(CGFloat)fontSize
+                    textAlignment:(NSTextAlignment)textAlignment
+                        addToView:(UIView *)view
+                            bBold:(BOOL)bBold
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:rect];
+    label.backgroundColor = bgColor;
+    if (bBold) {
+        label.font = [UIFont boldSystemFontOfSize:fontSize];
+    } else {
+        label.font = [UIFont systemFontOfSize:fontSize];
+    }
+    
+    label.textColor = textColor;
+    label.text = title;
+    label.textAlignment = textAlignment;
+    [view addSubview:label];
+    if (CGRectEqualToRect(rect, CGRectZero)
+        || CGRectEqualToRect(rect, CGRectNull)) {
+        [label sizeToFit];
+    }
+    return label;
+}
+
++ (CGSize)sizeWithText:(NSString *)text fontSize:(CGFloat)fontSize width:(CGFloat)width
+{
+    
+        NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:fontSize], NSFontAttributeName,nil];
+        CGSize size = CGSizeMake(width, 20000.0f);
+        size =[text boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:tdic context:nil].size;
+        return CGSizeMake(size.width, ceil(size.height));
+    
+}
+
++ (CGSize)sizeWithAttributedText:(NSAttributedString *)text width:(CGFloat)width
+{
+    if (bIOS8) {
+        CGSize size = CGSizeMake(width, 20000.0f);
+        size =[text boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil].size;
+        return size;
+
+    } else {
+        UITextView *view=[[UITextView alloc] initWithFrame:CGRectMake(0, 0, width, 10)];
+        view.attributedText=text;
+        CGSize size=[view sizeThatFits:CGSizeMake(width, CGFLOAT_MAX)];
+        return size;
+    }
+    
+}
+
++ (NSMutableAttributedString *)attributedStringWithText:(NSString *)text
+                                                   font:(UIFont *)font
+                                                  color:(UIColor *)color
+                                                  title:(NSString *)title
+                                              titleFont:(UIFont *)titleFont
+                                             titleColor:(UIColor *)titleColor
+{
+    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:text];
+    
+    
+    
+    [attriString addAttribute:NSFontAttributeName
+                        value:font
+                        range:NSMakeRange(0, text.length)];
+    
+    [attriString addAttribute:NSForegroundColorAttributeName
+                        value:color
+                        range:NSMakeRange(0, text.length)];
+    
+    [attriString addAttribute:NSFontAttributeName
+                        value:titleFont
+                        range:[text rangeOfString:title?:@""]];
+    
+    [attriString addAttribute:NSForegroundColorAttributeName
+                        value:titleColor
+                        range:[text rangeOfString:title?:@""]];
+    
+    
+    return attriString;
+}
+
+//NSAttributedString
++ (NSAttributedString *)attributeStringWith:(NSString *)title
+                                       font:(CGFloat)font
+                                      color:(UIColor *)color {
+    if (title.length > 0) {
+        return [[NSAttributedString alloc] initWithString:title
+                                               attributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIFont systemFontOfSize:font],
+                                                           NSFontAttributeName,
+                                                           color,
+                                                           NSForegroundColorAttributeName, nil]];
+    } else {
+        return [[NSAttributedString alloc] init];
+    }
+    
+    
+    
+}
+
+//NSMutableParagraphStyle
++ (NSMutableParagraphStyle *)paraGraphStyle:(CGFloat)space
+                                      align:(NSTextAlignment)align {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = space;
+    paragraphStyle.alignment = align;
+    
+    return paragraphStyle;
+}
+
++ (NSString *)retureValidString:(NSString *)string
+{
+    if (![string isKindOfClass:[NSString class]]) {
+        return @"";
+    }
+    
+    if (string.length == 0) {
+        return @"";
+    }
+    
+    return string;
+}
+
++ (void)addStrikethroughStyleAttributeWithAttributedString:(NSMutableAttributedString *)attributedString range:(NSRange)range
+{
+    [attributedString addAttribute:NSStrikethroughStyleAttributeName
+                             value:[NSNumber numberWithInteger:NSUnderlineStyleSingle]
+                             range:range];
+    [attributedString addAttribute:NSBaselineOffsetAttributeName
+                             value:[NSNumber numberWithInteger:0]
+                             range:range];
+}
+
++ (NSString *)convertToJsonString:(id)source options:(BOOL)plain
+{
+    if ([NSJSONSerialization isValidJSONObject:source]) {
+        NSError *error;
+        NSData *data = [NSJSONSerialization dataWithJSONObject:source options:plain?kNilOptions:NSJSONWritingPrettyPrinted error:&error];
+        if (!error) {
+            return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        }
+    }
+    return nil;
+}
+
++ (id)jsonConvertToObject:(NSString *)source
+{
+    NSData *data = [source dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    id object = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    if (!error) {
+        return object;
+    }
+    return nil;
+}
+
++ (UIButton *)createButtonWithTitle:(NSString *)title
+                          textColor:(UIColor *)textColor
+                            bgColor:(UIColor *)bgColor
+                           fontSize:(CGFloat)fontSize
+                              click:(void (^)(id x))nextBlock
+
+
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [btn setTitle:title forState:UIControlStateNormal];
+    btn.backgroundColor = bgColor;
+//    [btn setBackgroundImage:[ColorHelper imageWithColor:[UIColor lightGrayColor] size:CGSizeMake(1, 1)] forState:UIControlStateHighlighted];
+    [btn setTitleColor:textColor forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:fontSize];
+    if (nextBlock != nil) {
+        [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:nextBlock];
+    }
+    
+    
+    return btn;
+}
+
++ (UIButton *)createButtonWithImage:(UIImage *)image
+                              click:(void (^)(id x))nextBlock
+
+
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+//    [btn setBackgroundImage:[ColorHelper imageWithColor:[UIColor lightGrayColor] size:CGSizeMake(1, 1)] forState:UIControlStateHighlighted];
+    
+    [btn setImage:image forState:UIControlStateNormal];
+    if (nextBlock != nil) {
+        [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:nextBlock];
+    }
+    
+    
+    return btn;
+}
+
++ (UILabel *)createLabelWithTitle:(NSString *)title
+                        textColor:(UIColor *)textColor
+                          bgColor:(UIColor *)bgColor
+                         fontSize:(CGFloat)fontSize
+                    textAlignment:(NSTextAlignment)textAlignment
+                            bBold:(BOOL)bBold
+{
+    UILabel *label = [[UILabel alloc] init];
+    label.backgroundColor = bgColor;
+    label.textColor = textColor;
+    if (bBold) {
+        label.font = [UIFont boldSystemFontOfSize:fontSize];
+    } else {
+        label.font = [UIFont systemFontOfSize:fontSize];
+    }
+    
+    label.text = title;
+    label.textAlignment = textAlignment;
+    
+    return label;
+}
+
++ (NSAttributedString *)htmlAttributeStringWithText:(NSString *)title
+{
+    if (title.length > 0) {
+        NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[title dataUsingEncoding:NSUnicodeStringEncoding]
+                                                                        options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                             documentAttributes:nil
+                                                                          error:nil];
+        return attrStr;
+    } else {
+        return [[NSAttributedString alloc] init];
+    }
+    
+}
+
++ (NSAttributedString *)htmlAttributeStringWithText:(NSString *)title fontSize:(CGFloat)fontSize
+{
+    NSAttributedString *text = [InputHelper htmlAttributeStringWithText:title];
+    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithAttributedString:text];
+    [attriString addAttribute:NSFontAttributeName
+                        value:[UIFont systemFontOfSize:fontSize]
+                        range:NSMakeRange(0, text.length)];
+    return attriString;
+}
+
++ (UIFont *)systemFontForScreen320:(CGFloat)fontSize1 screen375:(CGFloat)fontSize2 screen414:(CGFloat)fontSize3 bold:(BOOL)bold
+{
+    CGFloat size = fontSize1;
+    if (kScreenWidth == 320) {
+        size = fontSize1;
+    } else if (kScreenWidth == 375) {
+        size = fontSize2;
+    } else if (kScreenWidth == 414) {
+        size = fontSize3;
+    }
+    
+    if (bold) {
+        return [UIFont boldSystemFontOfSize:size];
+    } else {
+        return [UIFont systemFontOfSize:size];
+    }
+    
+}
+
++ (UIFont*)customFontWithPath:(NSString*)path size:(CGFloat)size
+{
+    NSURL *fontUrl = [NSURL fileURLWithPath:path];
+    CGDataProviderRef fontDataProvider = CGDataProviderCreateWithURL((__bridge CFURLRef)fontUrl);
+    CGFontRef fontRef = CGFontCreateWithDataProvider(fontDataProvider);
+    CGDataProviderRelease(fontDataProvider);
+    CTFontManagerRegisterGraphicsFont(fontRef, NULL);
+    NSString *fontName = CFBridgingRelease(CGFontCopyPostScriptName(fontRef));
+    UIFont *font = [UIFont fontWithName:fontName size:size];
+    CGFontRelease(fontRef);
+    return font;
+}
+
+
+@end

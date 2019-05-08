@@ -1,0 +1,65 @@
+//
+//  DateHelper.h
+//  YSBBusiness
+//
+//  Created by lu lucas on 20/12/14.
+//  Copyright (c) 2014 lu lucas. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
+#import <UIKit/UIKit.h>
+
+static NSString * const NormalDateFormatter = @"yyyy-MM-dd HH:mm:ss";
+static NSString * const CouponDateFormatter = @"yyyy.MM.dd";
+static NSString * const MessageOnlyMDHMDateFormatter = @"MM月dd日 HH:mm";
+static NSString * const MessageOnlyMDDateFormatter = @"MM/dd";
+static NSString * const MessageOnlyHMDateFormatter = @"HH:mm";
+static NSString * const MessageDateTimeFormatter = @"MM/dd HH:mm:ss";
+
+
+typedef enum : NSUInteger {
+    TheSameTypeDay,
+    TheSameTypeMonth,
+    TheSameTypeYear,
+    TheSameTypeNotSame
+} TheSameType;
+
+@interface DateHelper : NSObject
+
+// 根据日期和格式，获取日期描述
++ (NSString *)timeWithDate:(NSTimeInterval)timeStamp formatter:(NSString *)formatter;
+
++ (NSString *)yearWithDate:(NSDate *)date;
++ (NSString *)monthWithDate:(NSDate *)date;
++ (NSString *)weekWithDate:(NSString *)date;
++ (NSString *)dayWithDate:(NSDate *)date;
++ (NSString *)getDateYearMonthDayString:(NSDate *)date;
+
+/**
+ *  将秒数转换为时：分：秒
+ *
+ *  @param duration 时长
+ *
+ *  @return 字符串
+ */
++ (NSString *)changeDurationToTime:(CGFloat)duration;
+
+
+
+// 日历操作
++ (NSInteger)firstWeekdayInThisMonth:(NSDate *)date;
+
++ (NSInteger)totaldaysInMonth:(NSDate *)date;
+
++ (NSDate *)lastMonth:(NSDate *)date;
+
++ (NSDate*)nextMonth:(NSDate *)date;
+
+// 用于药消息的时间显示
++ (NSString *)getMessageDateString:(NSTimeInterval)timeInterval;
+
+// date是否是今天
++ (BOOL)isToday:(NSDate *)date;
+
+@end
