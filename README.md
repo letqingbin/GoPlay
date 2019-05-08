@@ -70,7 +70,7 @@ vc.url = @"";	//input video/audio url
   
  - vr video
  
-![]()
+![GoPlay_VR](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay_VR.png)
 
  - video with watermark
  
