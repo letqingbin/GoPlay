@@ -102,4 +102,4 @@ GoPlay required features are based on or derives from projects below:
   - [GPUImage](https://github.com/BradLarson/GPUImage)
 
 - MIT
- - [FFmpeg-iOS-build-script](https://github.com/kewlbear/FFmpeg-iOS-build-script)
+  - [FFmpeg-iOS-build-script](https://github.com/kewlbear/FFmpeg-iOS-build-script)
