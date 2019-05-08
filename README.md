@@ -7,19 +7,19 @@ build script is based on [FFmpeg-iOS-build-script](https://github.com/kewlbear/F
 	
 * To build everything:
 ```
-	./build-ffmpeg.sh
+./build-ffmpeg.sh
 ```	
 * To build arm64 libraries:
 ```
-	./build-ffmpeg.sh arm64
+./build-ffmpeg.sh arm64
 ```
 * To build fat libraries for armv7 and x86_64 (64-bit simulator):
 ```
-	./build-ffmpeg.sh armv7 x86_64
+./build-ffmpeg.sh armv7 x86_64
 ```
 * To build fat libraries from separately built thin libraries:
 ```
-	./build-ffmpeg.sh lipo
+./build-ffmpeg.sh lipo
 ```
 
 ## Features
