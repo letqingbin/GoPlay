@@ -65,11 +65,11 @@ vc.url = @"";	//input video/audio url
 ### iOS
 
  - plane video
-  ![]()
+  ![GoPlay_Plane](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay_Plane.png)
  - vr video
    ![]()
  - video with watermark
-   ![]()
+   ![GoPlay_Watermark](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay_Watermark.png)
  
 ## Communication
 
