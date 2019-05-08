@@ -9,17 +9,12 @@ build script is based on [FFmpeg-iOS-build-script](https://github.com/kewlbear/F
 ```
 ./build-ffmpeg.sh
 ```	
-* To build arm64 libraries:
+* PS
 ```
-./build-ffmpeg.sh arm64
-```
-* To build fat libraries for armv7 and x86_64 (64-bit simulator):
-```
-./build-ffmpeg.sh armv7 x86_64
-```
-* To build fat libraries from separately built thin libraries:
-```
-./build-ffmpeg.sh lipo
+After compile, if you want to custom your own library, you shoud notice three points: 
+1) copy ./ffmpeg-3.4.1/libavformat/avc.h  --->  ./FFmpeg-iOS/include/libavformat
+2) copy ./FFmpeg-iOS ---> ./GoPlay/GoPlay/Vendor/FFmpeg/ 
+3) config: Build Settings - Header Search Paths - "$(SRCROOT)/GoPlay/Vendor/FFmpeg/FFmpeg-iOS/include"
 ```
 
 ## Features
