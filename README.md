@@ -12,7 +12,7 @@ build script is based on [FFmpeg-iOS-build-script](https://github.com/kewlbear/F
 * PS
 ```
 After compile, if you want to custom your own library, you shoud notice three points: 
-1) copy ./ffmpeg-3.4.1/libavformat/avc.h  --->  ./FFmpeg-iOS/include/libavformat
+1) copy ./ffmpeg-3.4.1/libavformat/avc.h  --->  ./FFmpeg-iOS/include/libavformat/
 2) copy ./FFmpeg-iOS ---> ./GoPlay/GoPlay/Vendor/FFmpeg/ 
 3) config: Build Settings - Header Search Paths - "$(SRCROOT)/GoPlay/Vendor/FFmpeg/FFmpeg-iOS/include"
 ```
