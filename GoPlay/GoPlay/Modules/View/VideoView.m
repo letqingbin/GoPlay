@@ -27,7 +27,6 @@ const static int kCountdownToHideNum = 5;
 @interface VideoView()
 @property(nonatomic,strong) UIButton* goBackBtn;
 
-@property(nonatomic,strong) UILabel*  titleLabel;
 @property(nonatomic,strong) UISlider* slider;
 
 @property(nonatomic,strong) UIButton* filterBtn;
@@ -108,7 +107,6 @@ const static int kCountdownToHideNum = 5;
 - (void)addSubviews
 {
 	[self addControls:self.goBackBtn];
-	[self addControls:self.titleLabel];
 	[self addControls:self.slider];
 	[self addControls:self.playBtn];
 	[self addControls:self.vrBtn];
@@ -128,11 +126,6 @@ const static int kCountdownToHideNum = 5;
 		make.left.equalTo(self).offset(15);
 		make.top.equalTo(self).offset(15);
 		make.size.mas_equalTo(CGSizeMake(44, 44));
-	}];
-
-	[self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-		make.centerY.equalTo(self.goBackBtn);
-		make.left.equalTo(self.goBackBtn.mas_right).offset(10);
 	}];
 
 	[self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -156,6 +149,7 @@ const static int kCountdownToHideNum = 5;
 	[self.filterBtn mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.centerY.equalTo(self.playBtn);
 		make.left.equalTo(self.vrBtn.mas_right).offset(15);
+		make.size.mas_equalTo(CGSizeMake(34, 34));
 	}];
 
 	[self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -461,21 +455,6 @@ const static int kCountdownToHideNum = 5;
 	}
 
 	return _goBackBtn;
-}
-
-- (UILabel *)titleLabel
-{
-	if(!_titleLabel)
-	{
-		_titleLabel = [CommonUtil LabelWithTitle:@"视频地址"
-									   textColor:[UIColor whiteColor]
-										 bgColor:[UIColor clearColor]
-											font:18
-								   textAlignment:NSTextAlignmentLeft
-											Bold:NO];
-	}
-
-	return _titleLabel;
 }
 
 - (UISlider *)slider

@@ -38,7 +38,7 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
 	PlayViewController* vc = [[PlayViewController alloc]init];
-	vc.url = @"";	//input media url
+	vc.url = @"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";	//input media url
 	[self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -1725,8 +1725,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R9M596KX5K;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/GoPlay/Vendor/FFmpeg/FFmpeg-iOS/include\"";
 				INFOPLIST_FILE = GoPlay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1749,8 +1750,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R9M596KX5K;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/GoPlay/Vendor/FFmpeg/FFmpeg-iOS/include\"";
 				INFOPLIST_FILE = GoPlay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

@@ -36,23 +36,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPlay/Modules/Controller/PlayViewController.m"
-            timestampString = "578992811.505798"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "457"
-            endingLineNumber = "457"
-            landmarkName = "-watermark"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GoPlay/Modules/Controller/PlayViewController.m"
-            timestampString = "578992811.506266"
+            timestampString = "579002125.46179"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "460"

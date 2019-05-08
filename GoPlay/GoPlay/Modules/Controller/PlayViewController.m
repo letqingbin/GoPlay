@@ -454,22 +454,20 @@
 {
 	if(!_watermark)
 	{
-		//1920x1080
-		CGSize videoSize = CGSizeMake(1920, 1080);
+		CGSize videoSize = CGSizeMake(640, 360);	//configure video size
+
 		UIView* contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, videoSize.width, videoSize.height)];
 		contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		contentView.backgroundColor = UIColor.clearColor;
 
-		UILabel* label = [CommonUtil LabelWithTitle:@"WaterMark!"
-										  textColor:[UIColor orangeColor]
-											bgColor:[UIColor greenColor]
-											   font:60
-									  textAlignment:NSTextAlignmentCenter
-											   Bold:YES];
-		[contentView addSubview:label];
-		label.frame = CGRectMake(1920/2.0-250, 1080/2.0-100, 500, 200);
+		UIImageView* imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"watermark"]];
+		[contentView addSubview:imageView];
+		imageView.alpha = 0.7;
 
-		self.mixfilter.mix = label.alpha;
+		CGSize size = CGSizeMake(200, 200/1920.0*1080);
+		imageView.frame = CGRectMake(videoSize.width-size.width, videoSize.height-size.height, size.width, size.height);
+
+		self.mixfilter.mix = imageView.alpha;
 		_watermark = [[FFUIElement alloc]initWithView:contentView];
 	}
 	return _watermark;

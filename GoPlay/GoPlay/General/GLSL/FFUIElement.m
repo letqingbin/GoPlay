@@ -67,68 +67,74 @@
 
 - (void)update;
 {
-	[self updateWithTimestamp:-1];
+	runAsync(^{
+		[self updateWithTimestamp:-1];
+	});
 }
 
 - (void)updateUsingCurrentTime;
 {
-	if(CMTIME_IS_INVALID(self->time))
-	{
-		self->time = CMTimeMakeWithSeconds(0, 600);
-		self->actualTimeOfLastUpdate = [NSDate timeIntervalSinceReferenceDate];
-	}
-	else
-	{
-		NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-		NSTimeInterval diff = now - self->actualTimeOfLastUpdate;
-		self->time = CMTimeAdd(self->time, CMTimeMakeWithSeconds(diff, 600));
-		self->actualTimeOfLastUpdate = now;
-	}
+	runAsync(^{
+		if(CMTIME_IS_INVALID(self->time))
+		{
+			self->time = CMTimeMakeWithSeconds(0, 600);
+			self->actualTimeOfLastUpdate = [NSDate timeIntervalSinceReferenceDate];
+		}
+		else
+		{
+			NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+			NSTimeInterval diff = now - self->actualTimeOfLastUpdate;
+			self->time = CMTimeAdd(self->time, CMTimeMakeWithSeconds(diff, 600));
+			self->actualTimeOfLastUpdate = now;
+		}
 
-	[self updateWithTimestamp:CMTimeGetSeconds(self->time)];
+		[self updateWithTimestamp:CMTimeGetSeconds(self->time)];
+	});
 }
 
 - (void)updateWithTimestamp:(NSTimeInterval)frameTime;
 {
-	[[FFGLContext shareInstance] useCurrentContext];
+	runAsync(^{
+		[[FFGLContext shareInstance] useCurrentContext];
 
-	CGSize layerPixelSize = [self layerSizeInPixels];
+		CGSize layerPixelSize = [self layerSizeInPixels];
 
-	GLubyte *imageData = (GLubyte *) calloc(1, (int)layerPixelSize.width * (int)layerPixelSize.height * 4);
+		GLubyte *imageData = (GLubyte *) calloc(1, (int)layerPixelSize.width * (int)layerPixelSize.height * 4);
 
-	CGColorSpaceRef genericRGBColorspace = CGColorSpaceCreateDeviceRGB();
-	CGContextRef imageContext = CGBitmapContextCreate(imageData,
-													  (int)layerPixelSize.width,
-													  (int)layerPixelSize.height,
-													  8,
-													  (int)layerPixelSize.width * 4,
-													  genericRGBColorspace,
-													  kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
-	CGContextTranslateCTM(imageContext, 0.0f, layerPixelSize.height);
-	CGContextScaleCTM(imageContext, self->layer.contentsScale, -self->layer.contentsScale);
+		CGColorSpaceRef genericRGBColorspace = CGColorSpaceCreateDeviceRGB();
+		CGContextRef imageContext = CGBitmapContextCreate(imageData,
+														  (int)layerPixelSize.width,
+														  (int)layerPixelSize.height,
+														  8,
+														  (int)layerPixelSize.width * 4,
+														  genericRGBColorspace,
+														  kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+		CGContextTranslateCTM(imageContext, 0.0f, layerPixelSize.height);
+		CGContextScaleCTM(imageContext, self->layer.contentsScale, -self->layer.contentsScale);
 
-	[self->layer renderInContext:imageContext];
+		[self->layer renderInContext:imageContext];
 
-	CGContextRelease(imageContext);
-	CGColorSpaceRelease(genericRGBColorspace);
+		CGContextRelease(imageContext);
+		CGColorSpaceRelease(genericRGBColorspace);
 
-	self.outputFramebuffer = [[FFFramebufferPool shareInstance] getUnuseFramebufferBySize:layerPixelSize];
-	[self.outputFramebuffer activateFramebuffer];
+		self.outputFramebuffer = [[FFFramebufferPool shareInstance] getUnuseFramebufferBySize:layerPixelSize];
+		[self.outputFramebuffer activateFramebuffer];
 
-	glClearColor(0.0, 0.0, 0.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.0, 0.0, 0.0, 1.0);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glBindTexture(GL_TEXTURE_2D, [self.outputFramebuffer texture]);
-	glTexImage2D(GL_TEXTURE_2D,
-				 0,
-				 GL_RGBA,
-				 (int)layerPixelSize.width,
-				 (int)layerPixelSize.height,
-				 0, GL_BGRA, GL_UNSIGNED_BYTE,
-				 imageData);
-	[self infromTargetsAboutNewFrameAtTime:frameTime];
+		glBindTexture(GL_TEXTURE_2D, [self.outputFramebuffer texture]);
+		glTexImage2D(GL_TEXTURE_2D,
+					 0,
+					 GL_RGBA,
+					 (int)layerPixelSize.width,
+					 (int)layerPixelSize.height,
+					 0, GL_BGRA, GL_UNSIGNED_BYTE,
+					 imageData);
+		[self infromTargetsAboutNewFrameAtTime:frameTime];
 
-	free(imageData);
+		free(imageData);
+	});
 }
 
 - (void)infromTargetsAboutNewFrameAtTime:(NSTimeInterval)time
