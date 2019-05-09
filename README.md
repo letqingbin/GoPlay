@@ -1,3 +1,6 @@
+
+[English README](https://github.com/dKingbin/GoPlay/blob/master/README.md) | [中文介绍](https://github.com/dKingbin/GoPlay/blob/master/image/README-chs.md)
+
 # GoPlay
 - GoPlay is a media player framework for iOS. Based on FFmpeg and OpenGL ES 2.0. support all formats and custom your own filters by GLSL.
 
