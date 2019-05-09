@@ -1,3 +1,6 @@
+
+[English README](https://github.com/dKingbin/GoPlay/blob/master/README.md) | [中文介绍](https://github.com/dKingbin/GoPlay/blob/master/image/README-chs.md)
+
 # GoPlay
 
 - GoPlay 是一款基于FFmpeg/OpenGL ES 2.0 的媒体资源播放器框架。支持FFmpeg内嵌的所有格式。而且可以自定义各种滤镜, 包括VR、水印等。
@@ -93,15 +96,15 @@ Licensed under LGPLv2.1 or later
 
 GoPlay required features are based on or derives from projects below:
 - LGPL
-- [FFmpeg](http://git.videolan.org/?p=ffmpeg.git)
-- [ijkplayer](https://github.com/bilibili/ijkplayer)
-- [kxmovie](https://github.com/kolyvan/kxmovie)
+  - [FFmpeg](http://git.videolan.org/?p=ffmpeg.git)
+  - [ijkplayer](https://github.com/bilibili/ijkplayer)
+  - [kxmovie](https://github.com/kolyvan/kxmovie)
 
 - GNU v3.0
-- [SGPlay](https://github.com/libobjc/SGPlayer)
+  - [SGPlay](https://github.com/libobjc/SGPlayer)
 
 - BSD 3-Clause
-- [GPUImage](https://github.com/BradLarson/GPUImage)
+  - [GPUImage](https://github.com/BradLarson/GPUImage)
 
 - MIT
-- [FFmpeg-iOS-build-script](https://github.com/kewlbear/FFmpeg-iOS-build-script)
+  - [FFmpeg-iOS-build-script](https://github.com/kewlbear/FFmpeg-iOS-build-script)
