@@ -1,6 +1,6 @@
 //
 //  ColorUtil
-//  Line
+//  GoPlay
 //
 //  Created by dKingbin on 2018/6/20.
 //  Copyright © 2018年 dKingbin. All rights reserved.
@@ -12,11 +12,10 @@
 
 @interface ColorUtil : NSObject
 /**
- *  从色值中生成颜色
  *
- *  @param color 色值 #909090 或者 0X909090
+ *  @param color #909090 OR 0X909090
  *
- *  @return UIColor对象
+ *  @return UIColor
  */
 + (UIColor *)colorWithHexString:(NSString *)color;
 

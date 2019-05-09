@@ -1,6 +1,6 @@
 //
 //  CommonUtil.m
-//  Line
+//  GoPlay
 //
 //  Created by dKingbin on 2018/6/21.
 //  Copyright © 2018年 dKingbin. All rights reserved.

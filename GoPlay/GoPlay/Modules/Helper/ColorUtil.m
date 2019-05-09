@@ -1,6 +1,6 @@
 //
 //  ColorUtil
-//  Line
+//  GoPlay
 //
 //  Created by dKingbin on 2018/6/20.
 //  Copyright © 2018年 dKingbin. All rights reserved.

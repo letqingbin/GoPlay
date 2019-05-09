@@ -1,6 +1,6 @@
 //
 //  LodingView.h
-//  SFMoney
+//  GoPlay
 //
 //  Created by dKingbin on 2018/7/18.
 //  Copyright © 2018年 dKingbin. All rights reserved.
