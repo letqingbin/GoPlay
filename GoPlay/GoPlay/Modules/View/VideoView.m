@@ -496,7 +496,7 @@ const static int kCountdownToHideNum = 5;
 	if(!_filterBtn)
 	{
 		_filterBtn = [[UIButton alloc]init];
-		[_filterBtn setImage:[UIImage imageNamed:@"gg_watermark_icon"] forState:UIControlStateNormal];
+		[_filterBtn setImage:[UIImage imageNamed:@"gg_copyright_icon"] forState:UIControlStateNormal];
 	}
 
 	return _filterBtn;
