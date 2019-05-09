@@ -231,7 +231,7 @@ static int ffmpeg_interrupt_callback(void* ctx)
 		videoParam.timebase = self.videoTimebase;
 		videoParam.format   = self.videoFormat;
 		videoParam.rotate   = self.rotate;
-		videoParam.videoToolBoxEnable = YES;    //开启硬解码
+		videoParam.videoToolBoxEnable = [FFOptionsContext defaultOptions].videotoolbox;
 		videoParam.codecContex = self->_video_codec_context;
 		videoParam.duration    = self.videoDuration;
 		self.videoDecoder = [FFVideoDecoder decoderWithModel:videoParam];
