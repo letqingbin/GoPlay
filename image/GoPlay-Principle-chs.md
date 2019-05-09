@@ -15,6 +15,7 @@
 ### 关于滤镜支持
 
 为了方便滤镜的接入，滤镜包括滤镜链的实现都采用了GPUImage类似的做法，如果使用过GPUImage，那么就可以无缝的切换到GoPlay，同时可以根据GPUImage的已有滤镜自定义滤镜，无限扩展自己的滤镜库。GoPlay和GPUImage的滤镜类比如下表。
+
 || GOPlay | GPUImage
 ---|---|---
 输入 | FFMovie | GPUImageMovie

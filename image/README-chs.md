@@ -1,5 +1,6 @@
 
-[English README](https://github.com/dKingbin/GoPlay/blob/master/README.md) 
+[English README](https://github.com/dKingbin/GoPlay/blob/master/README.md)   |  [原理详解](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay-Principle-chs.md)
+
 # GoPlay
 
 - GoPlay 是一款基于FFmpeg/OpenGL ES 2.0 的iOS播放器。支持FFmpeg内嵌的所有格式。而且可以自定义各种滤镜, 包括VR、水印等。
