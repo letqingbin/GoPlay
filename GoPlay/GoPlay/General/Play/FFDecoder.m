@@ -16,6 +16,7 @@
 
 #import "FFVideoDecoder.h"
 #import "FFAudioDecoder.h"
+#import "FFOptionsContext.h"
 
 AVPacket flush_packet;
 
@@ -44,7 +45,8 @@ static int ffmpeg_interrupt_callback(void* ctx)
 	FFDecoder* obj = (__bridge FFDecoder*)ctx;
 	double timeout = fabs(CFAbsoluteTimeGetCurrent() - obj.interrupt_timeout);
 
-	if(timeout >= kMaxInterruptTimeout)
+	float maxInterruptTimeout = [FFOptionsContext defaultOptions].maxInterruptTimeout;
+	if(timeout >= maxInterruptTimeout)
 	{
 		LOG_INFO(@"ffmpeg_interrupt_callback, timeout : %f",timeout);
 

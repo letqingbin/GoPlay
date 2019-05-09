@@ -168,6 +168,7 @@
 		C4DE4B4F2282C7E10054D942 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DE4B482282C7E10054D942 /* libavdevice.a */; };
 		C4DE4B502282C7E10054D942 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DE4B492282C7E10054D942 /* libswresample.a */; };
 		C4DE4B512282C7E10054D942 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DE4B4A2282C7E10054D942 /* libswscale.a */; };
+		C4DE4B5C2283C1EC0054D942 /* FFOptionsContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DE4B5B2283C1EC0054D942 /* FFOptionsContext.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -610,6 +611,8 @@
 		C4DE4B482282C7E10054D942 /* libavdevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavdevice.a; sourceTree = "<group>"; };
 		C4DE4B492282C7E10054D942 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
 		C4DE4B4A2282C7E10054D942 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswscale.a; sourceTree = "<group>"; };
+		C4DE4B5A2283C1EC0054D942 /* FFOptionsContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FFOptionsContext.h; sourceTree = "<group>"; };
+		C4DE4B5B2283C1EC0054D942 /* FFOptionsContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FFOptionsContext.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1054,6 +1057,8 @@
 				C442843122816CBF00A01637 /* FFQueueContext.m */,
 				C442843322816CBF00A01637 /* FFSeekContext.h */,
 				C442843522816CBF00A01637 /* FFSeekContext.m */,
+				C4DE4B5A2283C1EC0054D942 /* FFOptionsContext.h */,
+				C4DE4B5B2283C1EC0054D942 /* FFOptionsContext.m */,
 			);
 			path = Context;
 			sourceTree = "<group>";
@@ -1543,6 +1548,7 @@
 				C44283C32281684500A01637 /* UIActionSheet+RACSignalSupport.m in Sources */,
 				C44283A92281684500A01637 /* UICollectionReusableView+RACSignalSupport.m in Sources */,
 				C44283E0228168E900A01637 /* FFVRFilter.m in Sources */,
+				C4DE4B5C2283C1EC0054D942 /* FFOptionsContext.m in Sources */,
 				C44283B82281684500A01637 /* UIGestureRecognizer+RACSignalSupport.m in Sources */,
 				C44283B32281684500A01637 /* NSDictionary+RACSequenceAdditions.m in Sources */,
 				C44283B62281684500A01637 /* UIAlertView+RACSignalSupport.m in Sources */,

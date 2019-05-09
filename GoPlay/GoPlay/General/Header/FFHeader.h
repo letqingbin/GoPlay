@@ -109,8 +109,4 @@ NSLog(@"%@",aMessage);	\
 #define kFFSeekCompletedNotificationKey @"kFFSeekCompletedNotificationKey"
 #define kFrameRenderedNotificationKey @"kFrameRenderedNotificationKey"
 
-#define kMaxAudioSeekInterval 0.01f
-#define kMaxVideoSeekInterval 0.01f
-#define kMaxInterruptTimeout 10.0
-
 #endif /* FFHeader_H_ */

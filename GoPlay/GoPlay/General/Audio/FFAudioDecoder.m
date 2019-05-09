@@ -14,6 +14,7 @@
 
 #import <Accelerate/Accelerate.h>
 #import "FFSeekContext.h"
+#import "FFOptionsContext.h"
 
 extern AVPacket flush_packet;
 
@@ -83,7 +84,7 @@ extern AVPacket flush_packet;
 - (void)startDecodeThread
 {
     self.state.playing = 1;
-    
+    float maxAudioSeekInterval = [FFOptionsContext defaultOptions].maxAudioSeekInterval;
     while (YES)
     {
         if(self.state.destroyed) break;
@@ -126,7 +127,7 @@ extern AVPacket flush_packet;
 
             if(!completed
 			   && theLastTimetamp <= seekCtx.seekToTime
-               && fabs(theLastTimetamp - seekCtx.seekToTime) > kMaxAudioSeekInterval)
+               && fabs(theLastTimetamp - seekCtx.seekToTime) > maxAudioSeekInterval)
             {
                 seekCtx.drop_aPacket_count++;
 				av_packet_unref(&packet);
@@ -169,7 +170,7 @@ extern AVPacket flush_packet;
                 float time = frame.position + frame.duration;
                 if(!completed
 				   && time <= seekCtx.seekToTime
-                   && fabs(time - seekCtx.seekToTime) > kMaxAudioSeekInterval)
+                   && fabs(time - seekCtx.seekToTime) > maxAudioSeekInterval)
                 {
                     seekCtx.drop_aframe_count++;
 					av_packet_unref(&packet);

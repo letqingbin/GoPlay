@@ -20,6 +20,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #import "ReactiveCocoa.h"
+#import "CommonUtil.h"
+#import "FFOptionsContext.h"
 
 @interface FFPlay()<FFAudioControllerDelegate>
 @property(nonatomic,strong) FFAudioFrame* currentAudioFrame;
@@ -40,8 +42,7 @@
 		self.position = 0.0f;
 		self.lastPostPosition = 0.0f;
 
-		//在刚开始初始化Face++模块时,比较耗时;需要丢帧处理;
-		self.framedrop = YES;	//开启丢帧
+		self.framedrop = [FFOptionsContext defaultOptions].framedrop;
 
         [self.audioController registerAudioSession];
         [self setupObservers];
@@ -83,7 +84,7 @@
 {
 	if(!self.decoder.state.readyToDecode)
 	{
-//		[CommonUtil showMessage:nil message:@"加载中..."];
+		[CommonUtil showMessage:nil message:@"loading..."];
 		 return;
 	}
 
@@ -107,7 +108,7 @@
 {
 	if(!self.decoder.state.readyToDecode)
 	{
-//		[CommonUtil showMessage:nil message:@"加载中..."];
+		[CommonUtil showMessage:nil message:@"loading..."];
 		return;
 	}
 	

@@ -14,6 +14,7 @@
 
 #import "FFUtil.h"
 #import "FFStreamParser.h"
+#import "FFOptionsContext.h"
 #import <VideoToolbox/VideoToolbox.h>
 
 #include <stdlib.h>
@@ -149,6 +150,7 @@ extern AVPacket flush_packet;
 #pragma mark - async decode thread
 - (void)decodeAsyncThread
 {
+	float maxVideoSeekInterval = [FFOptionsContext defaultOptions].maxVideoSeekInterval;
 	while (YES)
 	{
         if(self.state.destroyed) break;
@@ -185,6 +187,7 @@ extern AVPacket flush_packet;
 		[self enqueueBufferPacket:&packet];
 
 		FFSeekContext* seekCtx = [FFSeekContext shareContext];
+
 		if(self.state.seeking
            && self.model.codecContex->codec_id == AV_CODEC_ID_H264)
 		{
@@ -197,9 +200,10 @@ extern AVPacket flush_packet;
 			bool is_b_frame = [FFUtil ff_is_b_frame:&packet];
 
 			float time = (packet.pts + packet.duration) * self.model.timebase;
+
 			if(is_b_frame
 			   && time < seekCtx.seekToTime
-			   && fabs(time - seekCtx.seekToTime) > kMaxVideoSeekInterval)
+			   && fabs(time - seekCtx.seekToTime) > maxVideoSeekInterval)
 			{
 				seekCtx.drop_vPacket_count++;
 				av_packet_unref(&packet);
@@ -247,7 +251,7 @@ extern AVPacket flush_packet;
             
             if(!completed
                && theLastTimetamp <= seekCtx.seekToTime
-               && fabs(theLastTimetamp - seekCtx.seekToTime) > kMaxVideoSeekInterval)
+               && fabs(theLastTimetamp - seekCtx.seekToTime) > maxVideoSeekInterval)
             {
                 seekCtx.drop_vframe_count++;
                 av_packet_unref(&packet);
