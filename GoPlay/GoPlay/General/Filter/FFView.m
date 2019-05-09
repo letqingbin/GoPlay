@@ -265,7 +265,6 @@
 		glUniform1i(self.inputImageTextureId, 5);
 
 		//need to update every times
-		//显示需要建立在glkit坐标上
 		glVertexAttribPointer(self.inputTextureCoordinateId, 2, GL_FLOAT, GL_FALSE, 0, glkit_rotate_matrix(self.rotationMode));
 
 		[self updateFillMode];

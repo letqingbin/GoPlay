@@ -311,16 +311,6 @@
 		}
 	}
 
-	//log
-//    LOG_DEBUG(@"begin~~~~~~~~~~~~~~");
-//    LOG_DEBUG(@"video pts:  %f",frame.position);
-//    LOG_DEBUG(@"audio pts:  %f",ref_clock);
-//    LOG_DEBUG(@"video duration:  %f",frame.duration);
-//    LOG_DEBUG(@"audio duration:  %f",ctx.audio_duration);
-//    LOG_DEBUG(@"calculate delay:  %f",delay);
-//    LOG_DEBUG(@"actual delay:  %f",actual_delay);
-//    LOG_DEBUG(@"end~~~~~~~~~~~~~~");
-
 	[self.ffMovie render:frame];
 	[self updatePositionByVideo:frame.position];
 

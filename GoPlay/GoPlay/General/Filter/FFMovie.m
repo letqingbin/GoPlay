@@ -75,15 +75,6 @@
 
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-//		static int saved = 0;
-//		if(frame.position >= 0.0 && saved == 0)
-//		{
-//			saved = 1;
-//			CGImageRef imageRef = [self.outputFramebuffer newCGImageFromFramebufferContents];
-//			UIImage* image = [[UIImage alloc]initWithCGImage:imageRef];
-//			UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-//		}
-
 		//frame.position
 		[self infromTargetsAboutNewFrameAtTime:frame.position];
 	});
