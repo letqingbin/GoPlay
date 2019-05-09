@@ -1,5 +1,8 @@
 #!/bin/sh
 
+basepath=$(cd `dirname $0`; pwd)
+cd $basepath
+
 # directories
 FF_VERSION="3.4.1"
 #FF_VERSION="snapshot-git"
