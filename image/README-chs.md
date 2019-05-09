@@ -1,6 +1,5 @@
 
-[English README](https://github.com/dKingbin/GoPlay/blob/master/README.md) | [中文介绍](https://github.com/dKingbin/GoPlay/blob/master/image/README-chs.md)
-
+[English README](https://github.com/dKingbin/GoPlay/blob/master/README.md) 
 # GoPlay
 
 - GoPlay 是一款基于FFmpeg/OpenGL ES 2.0 的媒体资源播放器框架。支持FFmpeg内嵌的所有格式。而且可以自定义各种滤镜, 包括VR、水印等。
