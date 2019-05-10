@@ -1,7 +1,16 @@
 #!/bin/sh
 
-basepath=$(cd `dirname $0`; pwd)
-cd $basepath
+BASE_PATH=$(cd `dirname $0`; pwd)
+cd $BASE_PATH
+
+BUILD_PATH=$BASE_PATH/"build"
+
+if [ ! -d $BUILD_PATH ]
+then
+	mkdir $BUILD_PATH
+fi
+
+cd $BUILD_PATH
 
 # directories
 FF_VERSION="3.4.1"
@@ -172,8 +181,7 @@ then
 	cp -rf $THIN/$1/include $FAT
 fi
 
-CWD=`pwd`
-echo $CWD
-cp $CWD/ffmpeg-3.4.1/libavformat/avc.h  $CWD/FFmpeg-iOS/include/libavformat
-cp -rf $CWD/FFmpeg-iOS $CWD/GoPlay/GoPlay/Vendor/FFmpeg/
+cd $BASE_PATH
+cp $BUILD_PATH/ffmpeg-3.4.1/libavformat/avc.h $BUILD_PATH/FFmpeg-iOS/include/libavformat
+cp -rf $BUILD_PATH/FFmpeg-iOS $BASE_PATH/GoPlay/GoPlay/Vendor/FFmpeg/
 echo Done
