@@ -5,7 +5,7 @@
 
 [GoPlay](https://github.com/dKingbin/GoPlay)是一款基于FFmpeg/OpenGL ES 2.0 的iOS播放器。支持FFmpeg内嵌的所有格式。而且可以自定义各种滤镜, 包括VR、水印等。
 
-## 前沿
+## 前言
 
 关于iOS视频播放，苹果提供的AVPlayer性能是非常出色的，但是有个缺点，就是支持播放的格式并不多，仅仅支持mp4/mov/ts等有限的几种格式。显然业界中比较知名的jikplayer确实弥补了这种缺陷，然而ijkplayer是在FFmpeg/ffplay的基础上进行开发的，最终是通过SDL2.0进行显示。在当前大环境下，VR、水印、贴图、九宫格等滤镜盛行，在ijkplayer中默认是支持avfilter滤镜的，但是并没有支持GPU滤镜；那么有没有一种办法可以播放AVPlayer不支持格式的视频，又能够在视频上无限制的加滤镜，例如GPUImage那么方便那么丝滑的做法呢？上面两个痛点也就是GoPlay解决的问题。
 
