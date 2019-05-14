@@ -65,19 +65,19 @@
 	_type = type;
 	if(type == tt_volume)
 	{
-		self.logo.image = [UIImage imageNamed:@"play_volume"];
+		self.logo.image = [UIImage imageNamed:@"gg_volume_icon"];
 	}
 	else if(type == tt_brightness)
 	{
-		self.logo.image = [UIImage imageNamed:@"play_brightness"];
+		self.logo.image = [UIImage imageNamed:@"gg_brightness_icon"];
 	}
 	else if(type == tt_seektime_forward)
 	{
-		self.logo.image = [UIImage imageNamed:@"play_fastforward"];
+		self.logo.image = [UIImage imageNamed:@"gg_forward_icon"];
 	}
 	else if(type == tt_seektime_backward)
 	{
-		self.logo.image = [UIImage imageNamed:@"play_rewind"];
+		self.logo.image = [UIImage imageNamed:@"gg_backward_icon"];
 	}
 
 	if(type == tt_volume || type == tt_brightness)
