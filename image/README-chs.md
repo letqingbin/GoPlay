@@ -85,7 +85,7 @@ vc.url = @"";	//input video/audio url
 
 - GitHub : [dKingbin](https://github.com/dKingbin)
 - Email : loveforjyboss@163.com
-- QQq群 : 527359948 (GoPlay交流群)
+- QQ群 : 527359948 (GoPlay交流群)
 
 ### License
 
