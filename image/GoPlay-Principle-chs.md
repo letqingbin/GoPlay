@@ -64,3 +64,6 @@ ArcBall本质上是将二维平面上的滑动转换成三维立体球的转动�
 
 关于GoPlay的相关原理基本上到这里结束了。感兴趣的可以在[GoPlay](https://github.com/dKingbin/GoPlay)中找到相关的实现，当然也可以提BUG一起讨论。
 
+## 讨论
+
+QQ交流群： 527359948 (GoPlay交流群)
