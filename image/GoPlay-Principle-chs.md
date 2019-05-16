@@ -19,7 +19,7 @@
 
 为了方便滤镜的接入，滤镜包括滤镜链的实现都采用了GPUImage类似的做法，如果使用过GPUImage，那么就可以无缝的切换到GoPlay，同时可以根据GPUImage的已有滤镜自定义滤镜，无限扩展自己的滤镜库。GoPlay和GPUImage的滤镜类比如下表。
 
-|| GOPlay | GPUImage
+|| GoPlay | GPUImage
 ---|---|---
 输入 | FFMovie | GPUImageMovie
 滤镜 | FFFilter | GPUImageFilter
@@ -33,12 +33,12 @@ GoPlay主要有5个线程(包括主线程)，其中OpenGL ES渲染、滤镜都�
 
 - 解封装线程 -- FFmpeg解封装，读取packet，分发到视频解码线程和音频解码线程
 
-- 视频解码线程 -- 将packet解码成frame，并保存到队列缓存中
+- 视频解码线程 -- 将video packet解码成video frame，并保存到视频队列缓存中
 
-- 音频解码线程 --  将packet解码成frame，并保存到队列缓存中
+- 音频解码线程 --  将audio packet解码成audio frame，并保存到音频队列缓存中
 
 - OpenGL ES渲染、滤镜处理线程
-   - 从video缓存队列中取出数据帧，并且在GPU中从YUV转换成RGB，然后传递给下一级滤镜链，并最终显示
+   - 从video缓存队列中取出数据帧，并且在GPU中将YUV转换成RGB，然后传递给下一级滤镜链，并最终显示
 
 ### 关于音视频同步
 
