@@ -1,5 +1,5 @@
 
-[中文介绍](https://github.com/dKingbin/GoPlay/blob/master/image/README-chs.md)  |  [原理详解](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay-Principle-chs.md)
+[中文介绍](https://github.com/letqingbin/GoPlay/blob/master/image/README-chs.md)  |  [原理详解](https://github.com/letqingbin/GoPlay/blob/master/image/GoPlay-Principle-chs.md)
 
 # GoPlay
 - GoPlay is a media player framework for iOS. Based on FFmpeg and OpenGL ES 2.0. support all formats and custom your own filters by GLSL.
@@ -69,15 +69,15 @@ vc.url = @"";	//input video/audio url
 
  - plane video
  
-![GoPlay_Plane](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay_Plane.png)
+![GoPlay_Plane](https://github.com/letqingbin/GoPlay/blob/master/image/GoPlay_Plane.png)
   
  - vr video
  
-![GoPlay_VR](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay_VR.png)
+![GoPlay_VR](https://github.com/letqingbin/GoPlay/blob/master/image/GoPlay_VR.png)
 
  - video with watermark
  
-![GoPlay_Watermark](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay_Watermark.png)
+![GoPlay_Watermark](https://github.com/letqingbin/GoPlay/blob/master/image/GoPlay_Watermark.png)
    
  
 ## Communication
@@ -88,7 +88,7 @@ vc.url = @"";	//input video/audio url
 ### License
 
 ```
-Copyright (c) 2019 dKingbin
+Copyright (c) 2019 letqingbin
 Licensed under LGPLv2.1 or later
 ```
 
