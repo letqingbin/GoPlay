@@ -82,8 +82,8 @@ vc.url = @"";	//input video/audio url
  
 ## Communication
 
-- GitHub : [dKingbin](https://github.com/dKingbin)
-- Email : loveforjyboss@163.com
+- GitHub : [letqingbin](https://github.com/letqingbin)
+- Email : letqingbin@163.com
 
 ### License
 
