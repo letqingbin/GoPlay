@@ -1,5 +1,5 @@
 
-[English README](https://github.com/dKingbin/GoPlay/blob/master/README.md)   |  [原理详解](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay-Principle-chs.md)
+[English README](https://github.com/letqingbin/GoPlay/blob/master/README.md)   |  [原理详解](https://github.com/letqingbin/GoPlay/blob/master/image/GoPlay-Principle-chs.md)
 
 # GoPlay
 
@@ -70,26 +70,26 @@ vc.url = @"";	//input video/audio url
 
 - 正常播放视频
 
-![GoPlay_Plane](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay_Plane.png)
+![GoPlay_Plane](https://github.com/letqingbin/GoPlay/blob/master/image/GoPlay_Plane.png)
 
 - VR视频
 
-![GoPlay_VR](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay_VR.png)
+![GoPlay_VR](https://github.com/letqingbin/GoPlay/blob/master/image/GoPlay_VR.png)
 
 - 水印滤镜
 
-![GoPlay_Watermark](https://github.com/dKingbin/GoPlay/blob/master/image/GoPlay_Watermark.png)
+![GoPlay_Watermark](https://github.com/letqingbin/GoPlay/blob/master/image/GoPlay_Watermark.png)
 
 
 ## 联系方式
 
-- GitHub : [dKingbin](https://github.com/dKingbin)
+- GitHub : [letqingbin](https://github.com/letqingbin)
 - Email : loveforjyboss@163.com
 
 ### License
 
 ```
-Copyright (c) 2019 dKingbin
+Copyright (c) 2019 letqingbin
 Licensed under LGPLv2.1 or later
 ```
 
